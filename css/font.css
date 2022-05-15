@@ -1,0 +1,13 @@
+@font-face{
+    font-family: 'JetBrains Mono';
+    font-display: swap;
+    src: url('../font/JetBrainsMono-Regular.ttf') format("truetype");
+}
+@font-face{
+    font-family: 'HYZhengYuan-55W';
+    font-display: swap;
+    src: url('../font/HYZhengYuan-55W.ttf') format("truetype");
+}
+body {
+    font-family: 'JetBrains Mono','HYZhengYuan-55W';
+}
