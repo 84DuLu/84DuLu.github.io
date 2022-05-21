@@ -1,0 +1,290 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>CPP 13 文件输入/输出 | Snow's Blog</title><meta name="keywords" content="C"><meta name="author" content="snow"><meta name="copyright" content="snow"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="C Primer Plus 第13章笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CPP 13 文件输入&#x2F;输出">
+<meta property="og:url" content="http://example.com/eaf9ae16.html">
+<meta property="og:site_name" content="Snow&#39;s Blog">
+<meta property="og:description" content="C Primer Plus 第13章笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.ghibli.jp/gallery/thumb-totoro029.png">
+<meta property="article:published_time" content="2022-05-21T10:29:29.000Z">
+<meta property="article:modified_time" content="2022-05-21T13:55:27.191Z">
+<meta property="article:author" content="snow">
+<meta property="article:tag" content="C">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.ghibli.jp/gallery/thumb-totoro029.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/eaf9ae16"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CPP 13 文件输入/输出',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-05-21 21:55:27'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/modify.css"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://img.wxcha.com/m00/83/1a/d15d6c952997c5e4dea24a316e20f272.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://www.ghibli.jp/gallery/thumb-totoro029.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Snow's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">CPP 13 文件输入/输出</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-21T10:29:29.000Z" title="发表于 2022-05-21 18:29:29">2022-05-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-21T13:55:27.191Z" title="更新于 2022-05-21 21:55:27">2022-05-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C%E8%AF%AD%E8%A8%80/">C语言</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="CPP 13 文件输入/输出"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="文件输入-输出"><a href="#文件输入-输出" class="headerlink" title="文件输入/输出"></a>文件输入/输出</h1><h2 id="标准I-O"><a href="#标准I-O" class="headerlink" title="标准I/O"></a>标准I/O</h2><h3 id="fopen-函数"><a href="#fopen-函数" class="headerlink" title="fopen() 函数"></a>fopen() 函数</h3><p><code>fopen()</code> 函数定义在头文件 <stdio.h> 中，其函数原型为 <code>FILE *fopen(const char *filename, const char *mode);</code> 。它的第一个参数是待打开文件的名称；第二个参数是一个字符串，指定待打开文件的模式。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/84DuLu/img/img/image-20220521185331056.png" alt="image-20220521185331056"></p>
+<p>程序成功打开文件后，<code>fopen()</code> 将会返回文件指针，其他 I/O 函数可以用这个指针指定该文件。如果文件打开失败，函数将会返回一个空指针。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用法示例</span></span><br><span class="line">FILE * fp;</span><br><span class="line"><span class="keyword">if</span> ((fp = fopen(file, <span class="string">&quot;r&quot;</span>)) == <span class="literal">NULL</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Can&#x27;t open the file.\n&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>(EXIT_FAILURE); <span class="comment">// 定义在 &lt;stdlib.h&gt; 中</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="getc-和-putc-函数"><a href="#getc-和-putc-函数" class="headerlink" title="getc() 和 putc() 函数"></a>getc() 和 putc() 函数</h3><p><code>getc()</code> 定义于头文件 <stdio.h> ，函数原型为 <code>int fgetc(FILE *stream);</code> 。它的作用是从给定的输入流中读取下一个字符。读取成功时作为 <strong>unsigned char</strong> 获得并转换为 <strong>int</strong> 的字符，失败时为 <strong>EOF</strong> 。</p>
+<p><code>putc()</code> 定义于头文件 <stdio.h> ，函数原型为 <code>int putc(int ch, FILE *stream);</code> 。它的作用是写入字符 ch 到给定输出流 stream ，写入前将字符转换为 <strong>unsigned char</strong> 。成功时，以 <strong>int</strong> 形式返回被写入字符；失败时返回 EOF 。</p>
+<h3 id="fclose-函数"><a href="#fclose-函数" class="headerlink" title="fclose() 函数"></a>fclose() 函数</h3><p><code>fclose()</code> 定义于头文件 <stdio.h> ，函数原型为 <code>int fclose(FILE *stream);</code> 。它的作用是关闭给定的文件流，刷新缓冲区。如果成功关闭返回 <strong>0</strong> ；如果失败，则返回 <strong>EOF</strong> 。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用法示例</span></span><br><span class="line"><span class="keyword">if</span> (fclose(fp) != <span class="number">0</span>)</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Error in closing file %s\n&quot;</span>, argv[<span class="number">1</span>]);</span><br></pre></td></tr></table></figure>
+<h3 id="指向标准文件的指针"><a href="#指向标准文件的指针" class="headerlink" title="指向标准文件的指针"></a>指向标准文件的指针</h3><p>stdio.h 头文件把 3 个文件指针与 3 个标准文件相关联，<strong>C</strong> 程序会自动打开这 3 个标准文件。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/84DuLu/img/img/image-20220521193734425.png" alt="image-20220521193734425"></p>
+<h2 id="文件I-O"><a href="#文件I-O" class="headerlink" title="文件I/O"></a>文件I/O</h2><h3 id="fprintf-和-fscanf-函数"><a href="#fprintf-和-fscanf-函数" class="headerlink" title="fprintf() 和 fscanf() 函数"></a>fprintf() 和 fscanf() 函数</h3><p>均定义于头文件 <stdio.h> 中。</p>
+<blockquote>
+<p><code>int fprintf(FILE *stream, const char *format, ...);</code></p>
+</blockquote>
+<p>发送格式化输出到流 stream 中。成功返回写入的字符总数，否则返回一个负数。</p>
+<blockquote>
+<p><code>int fscanf(FILE *stream, const char *format, ...);</code> </p>
+</blockquote>
+<p>从流 stream 中读取格式化输入。如果成功，该函数返回成功匹配和赋值的个数。如果失败则返回 EOF 。</p>
+<h3 id="fgets-和-fputs-函数"><a href="#fgets-和-fputs-函数" class="headerlink" title="fgets() 和 fputs() 函数"></a>fgets() 和 fputs() 函数</h3><p>均定义于头文件 <stdio.h> 中。</p>
+<blockquote>
+<p><code>char *fgets(char *str, int count, FILE *stream);</code></p>
+</blockquote>
+<p>从给定文件流中读取最多 count-1 个字符并将它们存储于 str 所指向的字符数组。若文件尾出现或发现换行符则终止分析，后一情况下 str 将包含一个换行符。若读入字节且无错误发生，则紧随写入到 str 的最后一个字符后写入空字符。成功时返回 str ，失败则返回一个空指针。</p>
+<blockquote>
+<p><code>int fputs(const char *str, FILE *stream);</code></p>
+</blockquote>
+<p>把字符串写入到指定的流 stream 中，但不包括空字符。成功时返回非负值，失败时返回 EOF 。</p>
+<h2 id="其他函数"><a href="#其他函数" class="headerlink" title="其他函数"></a>其他函数</h2><h3 id="fseek-和-ftell"><a href="#fseek-和-ftell" class="headerlink" title="fseek() 和 ftell()"></a>fseek() 和 ftell()</h3><p>均定义于头文件 <stdio.h> 。</p>
+<blockquote>
+<p><code>int fseek(FILE *stream, long offset, int origin);</code></p>
+</blockquote>
+<p>设置文件流 stream 的文件位置指示器为 offset 所指向的值。成功时返回 0 ，否则为非零。</p>
+<p><code>fseek()</code> 的第 2 个参数是偏移量。该参数表示从起始点开始要移动的距离。该参数必须是一个 <strong>long</strong> 类型的值，可以为正（前移）、负（后移）或 0 （保持不动）。</p>
+<p><code>fseek()</code> 的第 3 个参数是模式，该参数确定起始点。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/84DuLu/img/img/image-20220521203915344.png" alt="image-20220521203915344"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fseek(fp, <span class="number">0L</span>, SEEK_SET); <span class="comment">// 定义至文件开始处</span></span><br><span class="line">fseek(fp, <span class="number">10L</span>, SEEK_SET); <span class="comment">// 定义至文件中的第 10 个字节</span></span><br><span class="line">fseek(fp, <span class="number">-10L</span>, SEEK_END); <span class="comment">// 从文件结尾处回退 10 个字节</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>long ftell(FILE *stream);</code></p>
+</blockquote>
+<p>返回流 stream 的文件位置指示器。成功时返回位置标识符的当前值，错误时返回 -1L 。</p>
+<p>倒叙显示文件内容的一个例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CNTL_Z <span class="string">&#x27;\032&#x27;</span>   <span class="comment">/* eof marker in DOS text files */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SLEN 81</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> file[SLEN];</span><br><span class="line">    <span class="type">char</span> ch;</span><br><span class="line">    FILE *fp;</span><br><span class="line">    <span class="type">long</span> count, last;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;Enter the name of the file to be processed:&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%80s&quot;</span>, file);</span><br><span class="line">    <span class="keyword">if</span> ((fp = fopen(file,<span class="string">&quot;rb&quot;</span>)) == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;                               <span class="comment">/* read-only mode   */</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;reverse can&#x27;t open %s\n&quot;</span>, file);</span><br><span class="line">        <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    fseek(fp, <span class="number">0L</span>, SEEK_END);        <span class="comment">/* go to end of file */</span></span><br><span class="line">    last = ftell(fp);</span><br><span class="line">    <span class="keyword">for</span> (count = <span class="number">1L</span>; count &lt;= last; count++)</span><br><span class="line">    &#123;</span><br><span class="line">        fseek(fp, -count, SEEK_END); <span class="comment">/* go backward      */</span></span><br><span class="line">        ch = getc(fp);</span><br><span class="line">		<span class="keyword">if</span> (ch != CNTL_Z &amp;&amp; ch != <span class="string">&#x27;\r&#x27;</span>)  <span class="comment">/* MS-DOS files */</span></span><br><span class="line">            <span class="built_in">putchar</span>(ch);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">putchar</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">    fclose(fp);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="二进制I-O-fread-和-fwrite"><a href="#二进制I-O-fread-和-fwrite" class="headerlink" title="二进制I/O: fread() 和 fwrite()"></a>二进制I/O: fread() 和 fwrite()</h3><p>ANSI C 提供两种文件打开模式：二进制和文本。以二进制模式打开文件时，可以逐字节读取文件；以文本模式打开文件时，会把文件内容从文本的系统表示法映射为 <strong>C</strong> 表示法。对于 UNIX 和 Linux 系统，这两种模式完全相同。</p>
+<p>实际上，所有的数据都是以二进制形式存储的，甚至连字符都以字符码的二进制表示来存储。如果文件中的所有数据都被解释成字符码，则称该文件包含文本数据。如果部分或所有的数据都被解释成二进制形式的数值数据，则称该文件包含二进制数据。</p>
+<blockquote>
+<p><code>size_t fwrite(const void * restrict ptr, size_t size, size_t nmemb, FILE * restrict fp);</code></p>
+</blockquote>
+<p><code>fwrite()</code> 函数把二进制数据写入文件。 <strong>size_t</strong> 是根据标准 <strong>C</strong> 类型定义的类型，它是 <strong>sizeof</strong> 运算符返回的类型，通常是 <strong>unsigned int</strong> ，但是实现可以选择使用其他类型。指针 ptr 是待写入数据块的地址。 size 表示待写入数据块的大小（以字节为单位），nmemb 表示待写入数据块的数量。fp 指定待写入的文件。<code>fwrite()</code> 函数返回成功写入项的数量。正常情况下，返回值是 nmemb ，但如果出现写入错误，返回值会比 nmemb 小。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 把 earnings 数组中的数据写入文件，数据被分成 10 块，每块都是 double 的大小</span></span><br><span class="line"><span class="type">double</span> earnings[<span class="number">10</span>];</span><br><span class="line">fwrite(earnings, <span class="keyword">sizeof</span>(<span class="type">double</span>), <span class="number">10</span>, fp);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>size_t fread(void * restrict ptr, size_t size, size_t nmemb, FILE * restrict fp);</code></p>
+</blockquote>
+<p>在 <code>fread()</code> 函数中，ptr 是待读取文件数据在内存中的地址，fp 指定待读取的文件。该函数用于读取被 <code>fwrite()</code> 写入文件的数据。返回情况与 <code>fwrite()</code> 类似。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 把 10 个 double 大小的值拷贝进 earnings 数组中</span></span><br><span class="line"><span class="type">double</span> earnings[<span class="number">10</span>];</span><br><span class="line">fread(earnings, <span class="keyword">sizeof</span>(<span class="type">double</span>), <span class="number">10</span>, fp);</span><br></pre></td></tr></table></figure>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><blockquote>
+<p>1.分别用 <code>fprintf()</code> 和 <code>fwrite()</code> 存储 8238201 有何区别？ </p>
+</blockquote>
+<p>用 <code>fprintf()</code> 存储 8238201 时，将其视为 7 个字符，保存在 7 字节中。用 <code>fwrite()</code> 存储时，使用该数的二进制表示，将其存储为一个 4 字节的整数。</p>
+<blockquote>
+<p>2.分别用 <code>putc()</code> 和 <code>fwrite()</code> 存储字符 S 有何区别？</p>
+</blockquote>
+<p>没有区别。两个函数都将其存储为一个单字节的二进制码。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">snow</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/eaf9ae16.html">http://example.com/eaf9ae16.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Snow's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C/">C</a></div><div class="post_share"><div class="social-share" data-image="https://www.ghibli.jp/gallery/thumb-totoro029.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/3f1e1e54.html"><img class="prev-cover" src="https://www.ghibli.jp/gallery/thumb-totoro029.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">CPP 12 存储类别、链接和内存管理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/3f1e1e54.html" title="CPP 12 存储类别、链接和内存管理"><img class="cover" src="https://www.ghibli.jp/gallery/thumb-totoro029.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-14</div><div class="title">CPP 12 存储类别、链接和内存管理</div></div></a></div><div><a href="/ea231a5f.html" title="CPP 9 函数"><img class="cover" src="https://www.ghibli.jp/gallery/thumb-totoro047.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-17</div><div class="title">CPP 9 函数</div></div></a></div><div><a href="/72b1e541.html" title="CPP 10 数组和指针"><img class="cover" src="https://www.ghibli.jp/gallery/thumb-totoro029.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-19</div><div class="title">CPP 10 数组和指针</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://img.wxcha.com/m00/83/1a/d15d6c952997c5e4dea24a316e20f272.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">snow</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/84DuLu"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA"><span class="toc-number">1.</span> <span class="toc-text">文件输入&#x2F;输出</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E5%87%86I-O"><span class="toc-number">1.1.</span> <span class="toc-text">标准I&#x2F;O</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fopen-%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.1.</span> <span class="toc-text">fopen() 函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getc-%E5%92%8C-putc-%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.2.</span> <span class="toc-text">getc() 和 putc() 函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fclose-%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.3.</span> <span class="toc-text">fclose() 函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E5%90%91%E6%A0%87%E5%87%86%E6%96%87%E4%BB%B6%E7%9A%84%E6%8C%87%E9%92%88"><span class="toc-number">1.1.4.</span> <span class="toc-text">指向标准文件的指针</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6I-O"><span class="toc-number">1.2.</span> <span class="toc-text">文件I&#x2F;O</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fprintf-%E5%92%8C-fscanf-%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.1.</span> <span class="toc-text">fprintf() 和 fscanf() 函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fgets-%E5%92%8C-fputs-%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.2.</span> <span class="toc-text">fgets() 和 fputs() 函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.</span> <span class="toc-text">其他函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fseek-%E5%92%8C-ftell"><span class="toc-number">1.3.1.</span> <span class="toc-text">fseek() 和 ftell()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6I-O-fread-%E5%92%8C-fwrite"><span class="toc-number">1.3.2.</span> <span class="toc-text">二进制I&#x2F;O: fread() 和 fwrite()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number">1.4.</span> <span class="toc-text">问题</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/eaf9ae16.html" title="CPP 13 文件输入/输出"><img src="https://www.ghibli.jp/gallery/thumb-totoro029.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CPP 13 文件输入/输出"/></a><div class="content"><a class="title" href="/eaf9ae16.html" title="CPP 13 文件输入/输出">CPP 13 文件输入/输出</a><time datetime="2022-05-21T10:29:29.000Z" title="发表于 2022-05-21 18:29:29">2022-05-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/3f1e1e54.html" title="CPP 12 存储类别、链接和内存管理"><img src="https://www.ghibli.jp/gallery/thumb-totoro029.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CPP 12 存储类别、链接和内存管理"/></a><div class="content"><a class="title" href="/3f1e1e54.html" title="CPP 12 存储类别、链接和内存管理">CPP 12 存储类别、链接和内存管理</a><time datetime="2022-05-14T09:22:09.000Z" title="发表于 2022-05-14 17:22:09">2022-05-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/fe57836f.html" title="CPP 11 字符串和字符串函数"><img src="https://www.ghibli.jp/gallery/thumb-totoro029.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CPP 11 字符串和字符串函数"/></a><div class="content"><a class="title" href="/fe57836f.html" title="CPP 11 字符串和字符串函数">CPP 11 字符串和字符串函数</a><time datetime="2022-04-23T13:29:43.000Z" title="发表于 2022-04-23 21:29:43">2022-04-23</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2022 By snow</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadGiscus () {
+  let nowTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? '' : ''
+
+  const config = Object.assign({
+    src: 'https://giscus.app/client.js',
+    'data-repo': '84DuLu/84DuLu.github.io',
+    'data-repo-id': 'R_kgDOHHKm_A',
+    'data-category-id': 'DIC_kwDOHHKm_M4COZ5J',
+    'data-mapping': 'pathname',
+    'data-theme': nowTheme,
+    'data-reactions-enabled': '1',
+    crossorigin: 'anonymous',
+    async: true
+  },null)
+
+  let ele = document.createElement('script')
+  for (let key in config) {
+    ele.setAttribute(key, config[key])
+  }
+  document.getElementById('giscus-wrap').insertAdjacentElement('afterbegin',ele)
+}
+
+function changeGiscusTheme () {
+  const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? '' : ''
+
+  function sendMessage(message) {
+    const iframe = document.querySelector('iframe.giscus-frame');
+    if (!iframe) return;
+    iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+  }
+
+  sendMessage({
+    setConfig: {
+      theme: theme
+    }
+  });
+}
+
+if ('Giscus' === 'Giscus' || !false) {
+  if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+  else loadGiscus()
+} else {
+  function loadOtherComment () {
+    loadGiscus()
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
