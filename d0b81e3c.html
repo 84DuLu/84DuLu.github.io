@@ -1,0 +1,294 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>CPP 14 结构和其他数据形式 | Snow's Blog</title><meta name="keywords" content="C"><meta name="author" content="snow"><meta name="copyright" content="snow"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="C Primer Plus 第14章笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CPP 14 结构和其他数据形式">
+<meta property="og:url" content="http://example.com/d0b81e3c.html">
+<meta property="og:site_name" content="Snow&#39;s Blog">
+<meta property="og:description" content="C Primer Plus 第14章笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.ghibli.jp/gallery/thumb-totoro029.png">
+<meta property="article:published_time" content="2022-05-29T07:33:26.000Z">
+<meta property="article:modified_time" content="2022-05-29T11:46:47.398Z">
+<meta property="article:author" content="snow">
+<meta property="article:tag" content="C">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.ghibli.jp/gallery/thumb-totoro029.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/d0b81e3c"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CPP 14 结构和其他数据形式',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-05-29 19:46:47'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/modify.css"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://img.wxcha.com/m00/83/1a/d15d6c952997c5e4dea24a316e20f272.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://www.ghibli.jp/gallery/thumb-totoro029.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Snow's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">CPP 14 结构和其他数据形式</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-29T07:33:26.000Z" title="发表于 2022-05-29 15:33:26">2022-05-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-29T11:46:47.398Z" title="更新于 2022-05-29 19:46:47">2022-05-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C%E8%AF%AD%E8%A8%80/">C语言</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="CPP 14 结构和其他数据形式"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="第十四章-结构和其他数据形式"><a href="#第十四章-结构和其他数据形式" class="headerlink" title="第十四章 结构和其他数据形式"></a>第十四章 结构和其他数据形式</h1><h2 id="结构基础"><a href="#结构基础" class="headerlink" title="结构基础"></a>结构基础</h2><h3 id="建立结构声明"><a href="#建立结构声明" class="headerlink" title="建立结构声明"></a>建立结构声明</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">book</span>&#123;</span></span><br><span class="line">    <span class="type">char</span> title[MAXTITL];</span><br><span class="line">    <span class="type">char</span> author[MAXAUTL];</span><br><span class="line">    <span class="type">float</span> value;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>结构声明像是一个模板，建立结构声明后，我们就可以定义结构变量来引用该模板。</p>
+<h3 id="定义结构变量"><a href="#定义结构变量" class="headerlink" title="定义结构变量"></a>定义结构变量</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">book</span> <span class="title">library</span>;</span></span><br></pre></td></tr></table></figure>
+<p>编译器执行这行代码便创建了一个结构变量 library 。编译器使用 book 模板为该变量分配空间。</p>
+<h3 id="初始化结构"><a href="#初始化结构" class="headerlink" title="初始化结构"></a>初始化结构</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">book</span> <span class="title">library</span> =</span> &#123;</span><br><span class="line">    <span class="string">&quot;snow&#x27;s blog&quot;</span>,</span><br><span class="line">    <span class="string">&quot;snow&quot;</span>,</span><br><span class="line">    <span class="number">7.77</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>与初始化数组类似，各初始化项用逗号分隔。</p>
+<p>C99 和 C11 为结构提供了指定初始化器。例如，只初始化 book 结构中的 value 成员，可以这样做：</p>
+<p><code>struct book surprise = &#123; .value = 10.99&#125;;</code></p>
+<h3 id="访问结构成员"><a href="#访问结构成员" class="headerlink" title="访问结构成员"></a>访问结构成员</h3><p>我们使用结构成员运算符 <strong>.</strong> 来访问结构中的成员。例如，<strong>library.value</strong> 即访问 library 中的 value ，用 <code>scanf(&quot;%f&quot;, &amp;library.value);</code> 来获取结构中 value 的值。</p>
+<h2 id="结构进阶"><a href="#结构进阶" class="headerlink" title="结构进阶"></a>结构进阶</h2><h3 id="结构数组"><a href="#结构数组" class="headerlink" title="结构数组"></a>结构数组</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAXBKS 100</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">book</span> <span class="title">library</span>[<span class="title">MAXBKS</span>];</span> <span class="comment">// 声明结构数组</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/84DuLu/img/img/image-20220529160102627.png" alt="image-20220529160102627" style="zoom: 67%;" /></p>
+<p>以上代码声明了一个结构数组，数组中的每个元素都是一个 book 类型的结构。library 是结构数组名，不是结构名。同样地，我们使用点（<strong>.</strong>）运算符来访问结构数组中的结构的成员。初始化结构数组与二维数组的处理相似，都是一个大花括号中含许多小花括号。</p>
+<h3 id="嵌套结构"><a href="#嵌套结构" class="headerlink" title="嵌套结构"></a>嵌套结构</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">names</span> &#123;</span></span><br><span class="line">    <span class="type">char</span> first[LEN];</span><br><span class="line">    <span class="type">char</span> last[LEN];</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">guy</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">names</span> <span class="title">handle</span>;</span> <span class="comment">//嵌套结构</span></span><br><span class="line">    <span class="type">char</span> favfood[LEN];</span><br><span class="line">    <span class="type">char</span> job[LEN];</span><br><span class="line">    <span class="type">float</span> income;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>以上代码是一个在结构声明中创建嵌套结构的例子。我们来看看如何初始化嵌套结构。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">guy</span> <span class="title">fellow</span> =</span> &#123;</span><br><span class="line">    &#123; <span class="string">&quot;Ewen&quot;</span>, <span class="string">&quot;Villard&quot;</span> &#125;, <span class="comment">// 嵌套结构的初始化</span></span><br><span class="line">    <span class="string">&quot;grilled salmon&quot;</span>,</span><br><span class="line">    <span class="string">&quot;personality&quot;</span>,</span><br><span class="line">    <span class="number">68112.00</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>我们还要知道如何访问嵌套结构中的成员。我们要使用两次点运算符，例如 <strong>fellow.handle.first</strong> 。</p>
+<h3 id="结构指针"><a href="#结构指针" class="headerlink" title="结构指针"></a>结构指针</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明结构指针</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">guy</span> * <span class="title">him</span>;</span></span><br></pre></td></tr></table></figure>
+<p>首先是关键字 <strong>struct</strong> ，其次是结构标记 guy ，然后是一个星号，其后跟着指针名。</p>
+<ul>
+<li>如何初始化结构指针？</li>
+</ul>
+<p>如果 fellow 是一个 guy 类型的结构变量，可以这样写：<code>him = &amp;fellow;</code> 。和数组不同，结构变量名并不是结构变量的地址，因此要在结构变量名前加上 &amp; 运算符。</p>
+<p>假如 fellow 是一个结构数组，这意味着 fellow[0] 是一个结构。要让 him 指向 fellow[0] ，可以写成 <code>him = &amp;fellow[0];</code></p>
+<ul>
+<li>如何用指针访问成员？</li>
+</ul>
+<p>我们使用 <strong>-&gt;</strong> 运算符。</p>
+<p>如果 him == &amp;barney ，那么 him-&gt;income 即是 barney.income 。</p>
+<p>如果 him == &amp;fellow[0] ，那么 him-&gt;income 即使 fellow[0].income 。</p>
+<p>其中 him-&gt;income 是一个 <strong>float</strong> 类型的变量。</p>
+<h3 id="向函数传递结构的信息"><a href="#向函数传递结构的信息" class="headerlink" title="向函数传递结构的信息"></a>向函数传递结构的信息</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">funds</span>&#123;</span></span><br><span class="line">	<span class="type">double</span> bankfund;</span><br><span class="line">    <span class="type">double</span> bankfund;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">funds</span> <span class="title">stan</span> =</span> &#123;</span><br><span class="line">	<span class="number">4032.27</span>,</span><br><span class="line">	<span class="number">8543.94</span>  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>1.传递结构的成员</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> <span class="title function_">sum</span><span class="params">(<span class="type">double</span> x, <span class="type">double</span> y)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> (x+y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sum(stan.bankfund, stan.bankfund);</span><br></pre></td></tr></table></figure>
+<p>2.传递结构的地址</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> <span class="title function_">sum</span><span class="params">(<span class="type">const</span> <span class="keyword">struct</span> funds * money)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> (money-&gt;backfund + money-&gt;savefund);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sum(&amp;stun);</span><br></pre></td></tr></table></figure>
+<p>3.传递结构</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> <span class="title function_">sum</span><span class="params">(<span class="keyword">struct</span> funds moolah)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> (moolah.bankfund + moolah.savefund);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sum(stan);</span><br></pre></td></tr></table></figure>
+<p>此外，我们还可以把结构数组名传递给函数。由于数组名就是该数组（中第一个结构）的地址，所以可以把它传递给函数。比如</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> <span class="title function_">sum</span><span class="params">(<span class="type">const</span> <span class="keyword">struct</span> funds money [], <span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">funds</span> <span class="title">jones</span>[<span class="title">N</span>] =</span> &#123;</span><br><span class="line">	...  </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">sum(jones, N);</span><br></pre></td></tr></table></figure>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ol>
+<li><strong>C</strong> 允许把一个结构赋值给另一个结构，即使成员是数组，也能完成赋值。</li>
+<li>结构、指针和 malloc()</li>
+<li>复合字面量和结构（C99）</li>
+<li>伸缩型数组成员（C99）</li>
+<li>匿名结构（C11）</li>
+</ol>
+<h2 id="联合"><a href="#联合" class="headerlink" title="联合"></a>联合</h2><p>联合是一种特殊的数据类型，它能在同一个内存空间中存储不同的数据类型，但任何时候只能有一个成员带有值。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">hold</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> digit;</span><br><span class="line">	<span class="type">double</span> bigfl;</span><br><span class="line">    <span class="type">char</span> letter;</span><br><span class="line">&#125;; <span class="comment">// 联合声明</span></span><br></pre></td></tr></table></figure>
+<p>定义联合变量和初始化联合。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">hold</span> <span class="title">valA</span>;</span></span><br><span class="line">valA.letter = <span class="string">&#x27;R&#x27;</span>;</span><br><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">hold</span> <span class="title">valB</span> =</span> valA; <span class="comment">// 用另一个联合来初始化</span></span><br><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">hold</span> <span class="title">valC</span> =</span> &#123;<span class="number">88</span>&#125;; <span class="comment">// 初始化联合的 digit 成员</span></span><br><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">hold</span> <span class="title">valD</span> =</span> &#123;.bigfl = <span class="number">118.2</span>&#125;; <span class="comment">// 指定初始化器</span></span><br></pre></td></tr></table></figure>
+<p>使用联合的简单例子。（在联合中，一次只存储一个值。）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">hold</span> <span class="title">fit</span>;</span></span><br><span class="line">fit.digit = <span class="number">23</span>; <span class="comment">// 把 23 存储在 fit 中，占 2 字节</span></span><br><span class="line">fit.bigfl = <span class="number">2.0</span>; <span class="comment">// 清除 23，存储 2.0，占 8 字节</span></span><br><span class="line">fit.letter = <span class="string">&#x27;h&#x27;</span>; <span class="comment">// 清除 2.0，存储 h ，占 1 字节</span></span><br></pre></td></tr></table></figure>
+<p>和结构一样，联合同样有匿名联合。它们的工作原理相同，即匿名联合是一个结构或联合的无名联合成员。（想想怎么访问匿名联合中的成员？）</p>
+<h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><p>可以用枚举类型声明符号名称来表示整型常量。<strong>enum</strong> 常量实际上是 <strong>int</strong> 类型，因此，只要能使用 <strong>int</strong> 类型的地方就可以使用枚举类型。枚举类型的目的是提高程序的可读性，它的语法与结构的语法相同。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">spectrum</span> &#123;</span>red, orange, yellow, green, blue, violet&#125;; <span class="comment">//red 和 orange 等实际都是 int 类型的常量</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">spectrum</span> <span class="title">color</span>;</span> <span class="comment">// 枚举变量可以是任意整数类型，前提是该整数类型可以存储枚举常量。</span></span><br></pre></td></tr></table></figure>
+<p>默认情况下，枚举列表中的常量都被赋予0、1、2等。我们也可以对枚举常量进行赋值。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">feline</span> &#123;</span>cat, lynx = <span class="number">10</span>, puma, tiger&#125;; <span class="comment">// 值分别是0、10、11、12</span></span><br></pre></td></tr></table></figure>
+<h2 id="typedef-简介"><a href="#typedef-简介" class="headerlink" title="typedef 简介"></a>typedef 简介</h2><p><strong>typedef</strong> 工具是一个高级数据特性，利用 <strong>typedef</strong> 可以为某一类型自定义名称。</p>
+<p>假设要用 BYTE 表示 1 字节的数组。只需像定义 <strong>char</strong> 类型变量一样定义 BYTE，然后在定义前面加上关键字 <strong>typedef</strong> 即可：</p>
+<p><code>typedef unsigned char BYTE;</code></p>
+<p>随后，便可使用 BYTE 来定义变量：</p>
+<p><code>BYTE x, y[10], * z;</code></p>
+<h3 id="其他复杂的声明"><a href="#其他复杂的声明" class="headerlink" title="其他复杂的声明"></a>其他复杂的声明</h3><p><img src="https://cdn.jsdelivr.net/gh/84DuLu/img/img/image-20220529191610783.png" alt="image-20220529191610783"></p>
+<p>数组名后面的 [] 和函数名后面的 () 具有相同的优先级。它们比 * 的优先级高。</p>
+<p>下面是一些较复杂的声明示例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> board[<span class="number">8</span>][<span class="number">8</span>]; <span class="comment">// 声明一个内含 int 数组的数组</span></span><br><span class="line"><span class="type">int</span> ** ptr; <span class="comment">// 声明一个指向指针的指针，被指向的指针指向 int</span></span><br><span class="line"><span class="type">int</span> * risks[<span class="number">10</span>]; <span class="comment">// 声明一个内含 10 个元素的数组，每个元素都是一个指向 int 的指针</span></span><br><span class="line"><span class="type">int</span> (* rusks)[<span class="number">10</span>]; <span class="comment">// 声明一个指向数组的指针，该数组内含 10 个 int 类型的值</span></span><br><span class="line"><span class="type">int</span> * off[<span class="number">3</span>][<span class="number">4</span>]; <span class="comment">// 声明一个 3×4 的二维数组，每个元素都是指向 int 的指针</span></span><br><span class="line"><span class="type">int</span> (* uff)[<span class="number">3</span>][<span class="number">4</span>]; <span class="comment">// 声明一个指向 3×4 二维数组的指针，该数组中内含 int 类型值</span></span><br><span class="line"><span class="type">int</span> (* uof[<span class="number">3</span>])[<span class="number">4</span>]; <span class="comment">// 声明一个内含 3 个指针元素的数组，其中每个指针都指向一个内含 4 个 int 类型元素的数组</span></span><br><span class="line"><span class="type">char</span> * <span class="title function_">fump</span><span class="params">(<span class="type">int</span>)</span>; <span class="comment">// 返回字符指针的函数</span></span><br><span class="line"><span class="type">char</span> (* frump)(<span class="type">int</span>); <span class="comment">// 指向函数的指针，该函数的返回类型为 char</span></span><br><span class="line"><span class="type">char</span> (* flump[<span class="number">3</span>])(<span class="type">int</span>); <span class="comment">// 内含 3 个指针的数组，每个指针都指向返回类型是 char 的函数</span></span><br></pre></td></tr></table></figure>
+<p>可以留意一下函数指针的声明，以 <code>void (*pfun)(char *);</code> 为例。它声明一个函数指针，被指向的函数接受 char * 类型的参数，无返回值。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">snow</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/d0b81e3c.html">http://example.com/d0b81e3c.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Snow's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C/">C</a></div><div class="post_share"><div class="social-share" data-image="https://www.ghibli.jp/gallery/thumb-totoro029.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/eaf9ae16.html"><img class="prev-cover" src="https://www.ghibli.jp/gallery/thumb-totoro029.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">CPP 13 文件输入/输出</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/eaf9ae16.html" title="CPP 13 文件输入/输出"><img class="cover" src="https://www.ghibli.jp/gallery/thumb-totoro029.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-21</div><div class="title">CPP 13 文件输入/输出</div></div></a></div><div><a href="/3f1e1e54.html" title="CPP 12 存储类别、链接和内存管理"><img class="cover" src="https://www.ghibli.jp/gallery/thumb-totoro029.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-14</div><div class="title">CPP 12 存储类别、链接和内存管理</div></div></a></div><div><a href="/ea231a5f.html" title="CPP 9 函数"><img class="cover" src="https://www.ghibli.jp/gallery/thumb-totoro047.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-17</div><div class="title">CPP 9 函数</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://img.wxcha.com/m00/83/1a/d15d6c952997c5e4dea24a316e20f272.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">snow</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/84DuLu"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0-%E7%BB%93%E6%9E%84%E5%92%8C%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BD%A2%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">第十四章 结构和其他数据形式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80"><span class="toc-number">1.1.</span> <span class="toc-text">结构基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B%E7%BB%93%E6%9E%84%E5%A3%B0%E6%98%8E"><span class="toc-number">1.1.1.</span> <span class="toc-text">建立结构声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E7%BB%93%E6%9E%84%E5%8F%98%E9%87%8F"><span class="toc-number">1.1.2.</span> <span class="toc-text">定义结构变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E7%BB%93%E6%9E%84"><span class="toc-number">1.1.3.</span> <span class="toc-text">初始化结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E7%BB%93%E6%9E%84%E6%88%90%E5%91%98"><span class="toc-number">1.1.4.</span> <span class="toc-text">访问结构成员</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E8%BF%9B%E9%98%B6"><span class="toc-number">1.2.</span> <span class="toc-text">结构进阶</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E6%95%B0%E7%BB%84"><span class="toc-number">1.2.1.</span> <span class="toc-text">结构数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B5%8C%E5%A5%97%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.2.</span> <span class="toc-text">嵌套结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E6%8C%87%E9%92%88"><span class="toc-number">1.2.3.</span> <span class="toc-text">结构指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%91%E5%87%BD%E6%95%B0%E4%BC%A0%E9%80%92%E7%BB%93%E6%9E%84%E7%9A%84%E4%BF%A1%E6%81%AF"><span class="toc-number">1.2.4.</span> <span class="toc-text">向函数传递结构的信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">1.2.5.</span> <span class="toc-text">其他</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%94%E5%90%88"><span class="toc-number">1.3.</span> <span class="toc-text">联合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE"><span class="toc-number">1.4.</span> <span class="toc-text">枚举</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#typedef-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.5.</span> <span class="toc-text">typedef 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%A4%8D%E6%9D%82%E7%9A%84%E5%A3%B0%E6%98%8E"><span class="toc-number">1.5.1.</span> <span class="toc-text">其他复杂的声明</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/d0b81e3c.html" title="CPP 14 结构和其他数据形式"><img src="https://www.ghibli.jp/gallery/thumb-totoro029.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CPP 14 结构和其他数据形式"/></a><div class="content"><a class="title" href="/d0b81e3c.html" title="CPP 14 结构和其他数据形式">CPP 14 结构和其他数据形式</a><time datetime="2022-05-29T07:33:26.000Z" title="发表于 2022-05-29 15:33:26">2022-05-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/eaf9ae16.html" title="CPP 13 文件输入/输出"><img src="https://www.ghibli.jp/gallery/thumb-totoro029.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CPP 13 文件输入/输出"/></a><div class="content"><a class="title" href="/eaf9ae16.html" title="CPP 13 文件输入/输出">CPP 13 文件输入/输出</a><time datetime="2022-05-21T10:29:29.000Z" title="发表于 2022-05-21 18:29:29">2022-05-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/3f1e1e54.html" title="CPP 12 存储类别、链接和内存管理"><img src="https://www.ghibli.jp/gallery/thumb-totoro029.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CPP 12 存储类别、链接和内存管理"/></a><div class="content"><a class="title" href="/3f1e1e54.html" title="CPP 12 存储类别、链接和内存管理">CPP 12 存储类别、链接和内存管理</a><time datetime="2022-05-14T09:22:09.000Z" title="发表于 2022-05-14 17:22:09">2022-05-14</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2022 By snow</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadGiscus () {
+  let nowTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? '' : ''
+
+  const config = Object.assign({
+    src: 'https://giscus.app/client.js',
+    'data-repo': '84DuLu/84DuLu.github.io',
+    'data-repo-id': 'R_kgDOHHKm_A',
+    'data-category-id': 'DIC_kwDOHHKm_M4COZ5J',
+    'data-mapping': 'pathname',
+    'data-theme': nowTheme,
+    'data-reactions-enabled': '1',
+    crossorigin: 'anonymous',
+    async: true
+  },null)
+
+  let ele = document.createElement('script')
+  for (let key in config) {
+    ele.setAttribute(key, config[key])
+  }
+  document.getElementById('giscus-wrap').insertAdjacentElement('afterbegin',ele)
+}
+
+function changeGiscusTheme () {
+  const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? '' : ''
+
+  function sendMessage(message) {
+    const iframe = document.querySelector('iframe.giscus-frame');
+    if (!iframe) return;
+    iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+  }
+
+  sendMessage({
+    setConfig: {
+      theme: theme
+    }
+  });
+}
+
+if ('Giscus' === 'Giscus' || !false) {
+  if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+  else loadGiscus()
+} else {
+  function loadOtherComment () {
+    loadGiscus()
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
